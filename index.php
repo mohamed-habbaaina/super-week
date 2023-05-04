@@ -1,7 +1,7 @@
 <?php
 require_once('./vendor/autoload.php');
 
-use App\Controller\User;
+use App\Controller\UserController;
 use App\Model\DbConnect;
 
 $router = new AltoRouter();
@@ -13,7 +13,10 @@ $router->map('GET', '/', function(){
 });
 
 $router->map('GET', '/users', function(){
-    echo "<h1>Titre</h1>";
+    echo "<h1>Titre users</h1>";
+
+    $user = new UserController;
+    echo $user->list();
 });
 
 
@@ -28,23 +31,22 @@ if(is_array($match) && is_callable($match['target']))
     header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
 
-$faker = Faker\Factory::create();
+// $faker = Faker\Factory::create();
 
-for($i=0; $i<20; $i++)
-{
-    $email = $faker->email();
-    $firstName =  $faker->firstName();
-    $lastName =  $faker->lastName();
+// for($i=0; $i<20; $i++)
+// {
+//     $email = $faker->email();
+//     $firstName =  $faker->firstName();
+//     $lastName =  $faker->lastName();
 
-    $req = 'INSERT INTO `user`(`email`, `first_name`, `last_name`) VALUES (:email, :first_name, :last_name)';
-    $reqInsert = DbConnect::getDb()->prepare($req);
-    $reqInsert->bindParam(':email', $email);
-    $reqInsert->bindParam(':first_name', $firsName);
-    $reqInsert->bindParam(':last_name', $lastName);
-    $reqInsert->execute();
+//     $req = 'INSERT INTO `user`(`email`, `first_name`, `last_name`) VALUES (:email, :first_name, :last_name)';
+//     $reqInsert = DbConnect::getDb()->prepare($req);
+//     $reqInsert->bindParam(':email', $email);
+//     $reqInsert->bindParam(':first_name', $firsName);
+//     $reqInsert->bindParam(':last_name', $lastName);
+//     $reqInsert->execute();
+// }
 
-
-}
 // echo $faker->lastName();
 // echo '<pre>';
 // var_dump($router);
