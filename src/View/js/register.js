@@ -52,5 +52,51 @@ function validEmail()
     }
 }
 
+// **************** first & last name ****************/
+//****************************************************/ 
+
+
+function validFirstName()
+{
+
+    // Creation of the Regexp to validate the first name:
+    // Alphabetical letter, lower case, upper case, special letter (ç,é,,etc) and space.
+    let nameRegExp = /^[a-zA-ZÀ-ÿ\s]+$/;
+
+    let testname = nameRegExp.test(firstName.value); // @return true , false
+
+    if(testname && firstName.value.length >= 2)
+    {
+    firstName.style.outlineColor = 'green'
+        return true; // to use it in the form devalidation function => validForm.
+    }
+    else
+    {
+    firstName.style.outlineColor = 'red'
+    return false;
+    }
+    
+}
+function validLastName()
+{
+
+    // Creation of the Regexp to validate the last name:
+    // Alphabetical letter, lower case, upper case, special letter (ç,é,,etc) and space.
+    let nameRegExp = /^[a-zA-ZÀ-ÿ\s]+$/;
+
+    let testname = nameRegExp.test(lastName.value); // @return true , false
+
+    if(testname && lastName.value.length >= 2)
+    {
+    lastName.style.outlineColor = 'green'
+        return true; // to use it in the form devalidation function => validForm.
+    }
+    else
+    {
+    lastName.style.outlineColor = 'red'
+    return false;
+    }
+    
+}
 
 })
