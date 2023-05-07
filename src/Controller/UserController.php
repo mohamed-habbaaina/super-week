@@ -68,4 +68,18 @@ class UserController
         }
     }
 
+    // Check if email is available.
+    public function registerUser($email, $firstName, $lastName, $password): bool
+    {
+        if(!$this->user->checkDB($email))
+        {
+            $this->user->register($email, $firstName, $lastName, $password);
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+
 }
