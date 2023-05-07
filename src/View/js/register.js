@@ -154,5 +154,57 @@ function validCoPass(){
     }
 
 }
+//******************  Validation  ********************$$**/
+// *******************************************************/ 
 
+
+/**
+ * @returns true if inputs valide
+ */
+function validForm() {
+    if(validEmail() && validFirstName() && validLastName() && validPassword() && validCoPass()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+// ****************  Fetch and Create User ****************/
+//*********************************************************/
+
+formRegister.addEventListener('submit', async function(e)
+{
+
+    e.preventDefault();
+    const formData = new FormData(this); // creation object Form.
+    
+    let res = await fetch('./src/Controller/userRegister.php', 
+    {
+        method: 'POST',
+        headers:{
+            'Accept': 'application/json',
+        },
+        body: formData
+    });
+
+    let response = await res.json();
+
+    console.log(response);
+
+    if(response == 'Created account !')
+    {
+        messageErr.innerText = response;
+        messageErr.style.color = 'green';
+
+        setTimeout(() => {
+            window.location = './connect';
+        }, 3000);
+    } else
+    {
+        messageErr.innerText = response;
+        messageErr.style.color = 'red';
+    }
+
+})
 })
