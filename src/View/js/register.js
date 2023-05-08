@@ -190,7 +190,6 @@ formRegister.addEventListener('submit', async function(e)
 
     let response = await res.json();
 
-    console.log(response);
 
     if(response == 'Created account !')
     {
@@ -198,8 +197,8 @@ formRegister.addEventListener('submit', async function(e)
         messageErr.style.color = 'green';
 
         setTimeout(() => {
-            window.location = './connect';
-        }, 3000);
+            window.location = './login';
+        }, 2000);
     } else
     {
         messageErr.innerText = response;

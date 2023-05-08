@@ -81,5 +81,22 @@ class UserController
         }
     }
 
+    public function login($email, $password)
+    {
+        if($data = $this->user->checkDB($email))
+        {
+            $passwordDB = $data['password'];
+
+            if (password_verify($password, $passwordDB))
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+
 
 }
