@@ -9,7 +9,8 @@ $router = new AltoRouter();
 $router->setBasePath('/super-week');
 
 $router->map('GET', '/', function(){
-    echo 'Hello Word';
+    // echo 'Hello Word';
+    require_once __DIR__ . '/src/View/home.php';
 });
 
 $router->map('GET', '/users', function(){
@@ -23,11 +24,16 @@ $router->map('GET', '/register', function(){
     
     require (__DIR__ . '/src/View/register.php');
 });
+
 $router->map('GET', '/login', function(){
     
     require (__DIR__ . '/src/View/login.php');
 });
 
+$router->map('GET', '/user/[i:id]', function($id){
+    $user = new UserController;
+    echo $user->getUser($id);
+});
 
 
 
