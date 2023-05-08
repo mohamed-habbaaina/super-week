@@ -1,6 +1,6 @@
 <?php
 namespace App\Controller;
-require_once('./../Model/UserModel.php');
+// require_once('../Model/UserModel.php');
 
 use App\Model\UserModel;
 class UserController
@@ -96,6 +96,14 @@ class UserController
             }
         }
         return false;
+    }
+
+    public function getUser(int $id): string | false
+    {
+        if($dataUser = $this->user->findUser($id))
+        {
+            return json_encode($dataUser);
+        }
     }
 
 
