@@ -19,6 +19,16 @@ $router->map('GET', '/users', function(){
     echo $user->list();
 });
 
+$router->map('GET', '/register', function(){
+    
+    require (__DIR__ . '/src/View/register.php');
+});
+$router->map('GET', '/login', function(){
+    
+    require (__DIR__ . '/src/View/login.php');
+});
+
+
 
 
 $match = $router->match();
