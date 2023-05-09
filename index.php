@@ -14,7 +14,7 @@ $router->map('GET', '/', function(){
 });
 
 $router->map('GET', '/users', function(){
-    echo "<h1>Titre users</h1>";
+    echo "<h1>Users</h1>";
 
     $user = new UserController;
     echo $user->list();
@@ -30,9 +30,19 @@ $router->map('GET', '/login', function(){
     require (__DIR__ . '/src/View/login.php');
 });
 
-$router->map('GET', '/user/[i:id]', function($id){
+$router->map('GET', '/users/[i:id]', function($id){
     $user = new UserController;
     echo $user->getUser($id);
+});
+
+$router->map('GET', '/books', function(){
+    $user = new UserController;
+    echo $user->getAllBooks();
+});
+
+$router->map('GET', '/books/[i:id]', function($id){
+    $user = new UserController;
+    echo $user->getBook($id);
 });
 
 
