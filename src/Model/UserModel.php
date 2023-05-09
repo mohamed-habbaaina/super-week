@@ -41,4 +41,30 @@ class UserModel
         $creatUser->execute();
     }
 
+    public function findUser(int $id): array | false
+    {
+        $req = 'SELECT * FROM user WHERE id = :id LIMIT 1';
+        $dataUser = DbConnect::getDb()->prepare($req);
+        $dataUser->bindParam(':id', $id);
+        $dataUser->execute();
+        return $dataUser->fetch(\PDO::FETCH_ASSOC) ?? false;
+    }
+
+    public function findAllBooks(): array
+    {
+        $reqbooks = 'SELECT * FROM book';
+        $dataBooks = DbConnect::getDb()->prepare($reqbooks);
+        $dataBooks->execute();
+        return $dataBooks->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function findBook(int $id): array | false
+    {
+        $req = 'SELECT * FROM book WHERE id = :id LIMIT 1';
+        $databook = DbConnect::getDb()->prepare($req);
+        $databook->bindParam(':id', $id);
+        $databook->execute();
+        return $databook->fetch(\PDO::FETCH_ASSOC) ?? false;
+    }
+
 }
