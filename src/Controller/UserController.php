@@ -104,6 +104,22 @@ class UserController
         {
             return json_encode($dataUser);
         }
+        return false;
+    }
+
+    public function getAllBooks(): string
+    {
+        $books = $this->user->findAllBooks();
+        return json_encode($books);
+    }
+
+    public function getBook(int $id): string | false
+    {
+        if($dataBook = $this->user->findBook($id))
+        {
+            return json_encode($dataBook);
+        }
+        return false;
     }
 
 
