@@ -1,12 +1,13 @@
 <?php
 require_once('./vendor/autoload.php');
 
-use App\Controller\UserController;
-use App\Model\DbConnect;
-
 $router = new AltoRouter();
 
 $router->setBasePath('/super-week');
+
+use App\Controller\UserController;
+use App\Controller\BooksController;
+use App\Controller\AuthController;
 
 $router->map('GET', '/', function(){
     // echo 'Hello Word';
@@ -16,8 +17,16 @@ $router->map('GET', '/', function(){
 $router->map('GET', '/users', function(){
     echo "<h1>Users</h1>";
 
+    // $user = new UserController;
+    // echo $user->list();
+    require (__DIR__ . '/src/View/users.php');
+});
+
+$router->map('GET', '/users/json', function(){
+
     $user = new UserController;
     echo $user->list();
+    // require (__DIR__ . '/src/View/users.php');
 });
 
 $router->map('GET', '/register', function(){
@@ -25,9 +34,25 @@ $router->map('GET', '/register', function(){
     require (__DIR__ . '/src/View/register.php');
 });
 
-$router->map('GET', '/login', function(){
+$router->map('POST', '/register', function(){
+
     
-    require (__DIR__ . '/src/View/login.php');
+    $authController = new AuthController();
+    $authController->register($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'], $_POST['c_pass']);
+    
+});
+
+
+$router->map('GET', '/login', function(){
+
+    echo 'login  !!';
+
+    // $authController = new AuthController();
+    // if(isset($_POST['email'])){
+
+    //     $authController->register($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'], $_POST['c_pass']);
+    // }
+
 });
 
 $router->map('GET', '/users/[i:id]', function($id){
@@ -36,9 +61,14 @@ $router->map('GET', '/users/[i:id]', function($id){
 });
 
 $router->map('GET', '/books', function(){
-    $user = new UserController;
-    echo $user->getAllBooks();
+    require (__DIR__ . '/src/View/books.php');
 });
+
+$router->map('GET', '/books/json', function(){
+    $booksController = new BooksController();
+    echo $booksController->getAllBooks();
+});
+
 
 $router->map('GET', '/books/[i:id]', function($id){
     $user = new UserController;
