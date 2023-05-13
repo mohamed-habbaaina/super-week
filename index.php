@@ -11,6 +11,7 @@ use App\Controller\AuthController;
 
 $router->map('GET', '/', function(){
     // echo 'Hello Word';
+
     require_once __DIR__ . '/src/View/home.php';
 });
 
@@ -45,13 +46,14 @@ $router->map('POST', '/register', function(){
 
 $router->map('GET', '/login', function(){
 
-    echo 'login  !!';
+    require (__DIR__ . '/src/View/login.php');
 
-    // $authController = new AuthController();
-    // if(isset($_POST['email'])){
+});
 
-    //     $authController->register($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'], $_POST['c_pass']);
-    // }
+$router->map('POST', '/login', function(){
+
+    $authController = new AuthController();
+    $authController->login($_POST['email'], $_POST['password']);
 
 });
 
