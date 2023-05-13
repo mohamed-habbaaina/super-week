@@ -50,13 +50,6 @@ class UserModel
         return $dataUser->fetch(\PDO::FETCH_ASSOC) ?? false;
     }
 
-    public function findAllBooks(): array
-    {
-        $reqbooks = 'SELECT * FROM book';
-        $dataBooks = DbConnect::getDb()->prepare($reqbooks);
-        $dataBooks->execute();
-        return $dataBooks->fetchAll(\PDO::FETCH_ASSOC);
-    }
 
     public function findBook(int $id): array | false
     {
