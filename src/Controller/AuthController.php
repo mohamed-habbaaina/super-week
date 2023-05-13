@@ -1,6 +1,6 @@
 <?php
 namespace App\Controller;
-// session_start();
+session_start();
 use App\Controller\UserController;
 use App\Model\UserModel;
 
@@ -106,6 +106,41 @@ if (empty($response['message']))
 
 } 
 
+
+public function login($email, $password)
+{
+    $response = [];
+    $response['succes'] = false;
+
+    if($data = $this->userModel->checkDB($email))
+    {
+        $passwordDB = $data['password'];
+
+        if (password_verify($password, $passwordDB))
+        {
+            $_SESSION['user'] = [
+                'email' => $email,
+                'id' => $data['id'],
+                'firstName' => $data['first_name']
+
+            ];
+
+            $response['success'] = true;
+            $response['message'] = 'Connected !';
+
+        } else
+        {
+
+            $response['message'] = 'Incorrect email or password !';
+        }
+    } else
+    {
+        $response['message'] = 'Incorrect email or password !';
+
+    }
+
+    echo json_encode($response);
+}
 
 
 
