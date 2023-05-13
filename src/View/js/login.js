@@ -11,7 +11,7 @@ formLogin.addEventListener('submit', async function(e){
 
     const formData = new FormData(this);
 
-    let res = await fetch('./src/Controller/userLogin.php', 
+    let res = await fetch('login', 
     {
         method: 'POST',
         headers:{
@@ -22,9 +22,9 @@ formLogin.addEventListener('submit', async function(e){
 
     let response = await res.json();
 
-    if(response === 'Connected !')
+    if(response.success)
     {
-        messageErr.innerText = response;
+        messageErr.innerText = response.message;
         messageErr.style.color = 'green';
 
         setTimeout(() => {
@@ -32,7 +32,7 @@ formLogin.addEventListener('submit', async function(e){
         }, 2000);
     } else
     {
-        messageErr.innerText = response;
+        messageErr.innerText = response.message;
         messageErr.style.color = 'red';
     }
 })
