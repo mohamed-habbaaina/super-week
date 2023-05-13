@@ -10,7 +10,7 @@
 <body>
     <main>
         <div class="messageErr"></div>
-        <form action="./js/register.js" id="formRegister">
+        <form action="" method="post" id="formRegister">
             <label for="email">Email</label>
             <input type="email" name="email" placeholder="Entrer Votre Email">
             <small></small>

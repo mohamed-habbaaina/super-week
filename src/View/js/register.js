@@ -179,7 +179,7 @@ formRegister.addEventListener('submit', async function(e)
     e.preventDefault();
     const formData = new FormData(this); // creation object Form.
     
-    let res = await fetch('./src/Controller/userRegister.php', 
+    let res = await fetch('register', 
     {
         method: 'POST',
         headers:{
@@ -191,9 +191,11 @@ formRegister.addEventListener('submit', async function(e)
     let response = await res.json();
 
 
-    if(response == 'Created account !')
+    console.log(response);
+
+    if(response.success)
     {
-        messageErr.innerText = response;
+        messageErr.innerText = response.message;
         messageErr.style.color = 'green';
 
         setTimeout(() => {
@@ -201,7 +203,7 @@ formRegister.addEventListener('submit', async function(e)
         }, 2000);
     } else
     {
-        messageErr.innerText = response;
+        messageErr.innerText = response.message;
         messageErr.style.color = 'red';
     }
 
