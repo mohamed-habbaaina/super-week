@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 if(isset($_SESSION['user']))
 {
     $email = $_SESSION['user']['email'];
@@ -20,7 +20,7 @@ if(isset($_SESSION['user']))
 
         <h1>Login</h1>
         
-        <form action="./js/login.js" id="formLogin">
+        <form action="" id="formLogin">
 
             <label for="email">Email</label>
             <input type="email" name="email" 
