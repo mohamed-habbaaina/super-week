@@ -15,5 +15,4 @@ class BooksModel
         $dataBooks->execute();
         return $dataBooks->fetchAll(\PDO::FETCH_ASSOC);
     }
-
 }
