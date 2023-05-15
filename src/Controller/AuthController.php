@@ -18,139 +18,120 @@ class AuthController
 
 
     public function register($firstName, $lastName, $email, $password, $coPass): void
-
     {
-    $response = [];
-    $response['succes'] = false;
+        $response = [];
+        $response['succes'] = false;
 
 
-    //******* */ validation inputs HTML.
-    // *********************************
+        //******* */ validation inputs HTML.
+        // *********************************
 
-    $firstName = $this->userController->isValid($_POST['first_name']);
-    $lastName = $this->userController->isValid($_POST['last_name']);
-    $email = $this->userController->isValid($_POST['email']);
-    $password = $this->userController->isValid($_POST['password']);
-    $coPass = $this->userController->isValid($_POST['c_pass']);
-    $validCoPass = false;
-
-
-    //********** validation inputs ***************************
-    
-    if(!$this->userController->validEmail($email))
-    {
-        $response['message'] = 'Email invalid !';
-    }
-
-    elseif(!$this->userController->validName($firstName))
-    {
-        $response['message'] = 'First name invalid !';
-    }
-
-    elseif(!$this->userController->validName($lastName))
-    {
-        $response['message'] = 'Last name invalid !';
-    }
+        $firstName = $this->userController->isValid($firstName);
+        $lastName = $this->userController->isValid($lastName);
+        $email = $this->userController->isValid($email);
+        $password = $this->userController->isValid($password);
+        $coPass = $this->userController->isValid($coPass);
+        $validCoPass = false;
 
 
-    elseif(!$this->userController->validPassword($password))
-    {
-        $response['message'] = 'Password invalid !';
-    }
-
-    elseif($password === $coPass)
-    {
-        $validCoPass = true;
-
-
-
-
-
-    } else
-    {
-        $response['message'] = 'Passwords do not match !';
-    }
-
-if (empty($response['message']))
-{
-
-        $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
-    
-        if(!$this->userModel->checkDB($email)){
-
-            $this->userModel->register($email, $firstName, $lastName, $password);
-
-            $_SESSION['user'] = [
-                'email' => $email,
-                'firstName' => $firstName
-            ];
-
-            $response['success'] = true;
-            $response['message'] = 'Created account !';
-
-            echo json_encode($response);
-
-        }else
+        //********** validation inputs ***************************
+        
+        if(!$this->userController->validEmail($email))
         {
-            $response['message'] = 'Email Unavailable !';
-
-            echo json_encode($response);
+            $response['message'] = 'Email invalid !';
         }
-    
-} else
-{
-    echo json_encode($response);
-}
 
-
-} 
-
-
-public function login($email, $password)
-{
-    $response = [];
-    $response['succes'] = false;
-
-    if($data = $this->userModel->checkDB($email))
-    {
-        $passwordDB = $data['password'];
-
-        if (password_verify($password, $passwordDB))
+        elseif(!$this->userController->validName($firstName))
         {
-            $_SESSION['user'] = [
-                'email' => $email,
-                'id' => $data['id'],
-                'firstName' => $data['first_name']
+            $response['message'] = 'First name invalid !';
+        }
 
-            ];
+        elseif(!$this->userController->validName($lastName))
+        {
+            $response['message'] = 'Last name invalid !';
+        }
 
-            $response['success'] = true;
-            $response['message'] = 'Connected !';
+
+        elseif(!$this->userController->validPassword($password))
+        {
+            $response['message'] = 'Password invalid !';
+        }
+
+        elseif($password === $coPass)
+        {
+            $validCoPass = true;
 
         } else
         {
-
-            $response['message'] = 'Incorrect email or password !';
+            $response['message'] = 'Passwords do not match !';
         }
-    } else
-    {
-        $response['message'] = 'Incorrect email or password !';
 
-    }
+        if (empty($response['message']))
+        {
 
-    echo json_encode($response);
+                $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
+            
+                if(!$this->userModel->checkDB($email)){
+
+                    $this->userModel->register($email, $firstName, $lastName, $password);
+
+                    $_SESSION['user'] = [
+                        'email' => $email,
+                        'firstName' => $firstName
+                    ];
+
+                    $response['success'] = true;
+                    $response['message'] = 'Created account !';
+
+                    echo json_encode($response);
+
+                }else
+                {
+                    $response['message'] = 'Email Unavailable !';
+
+                    echo json_encode($response);
+                }
+            
+        } else
+        {
+            echo json_encode($response);
+        }
+    } 
+
+
+        public function login($email, $password)
+        {
+            $response = [];
+            $response['succes'] = false;
+        
+            if($data = $this->userModel->checkDB($email))
+            {
+                $passwordDB = $data['password'];
+            
+                if (password_verify($password, $passwordDB))
+                {
+                    $_SESSION['user'] = [
+                        'email' => $email,
+                        'id' => $data['id'],
+                        'firstName' => $data['first_name']
+                    
+                    ];
+                
+                    $response['success'] = true;
+                    $response['message'] = 'Connected !';
+                
+                } else
+                {
+                
+                    $response['message'] = 'Incorrect email or password !';
+                }
+            } else
+            {
+                $response['message'] = 'Incorrect email or password !';
+            
+            }
+        
+            echo json_encode($response);
+        }
+
 }
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
